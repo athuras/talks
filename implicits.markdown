@@ -279,7 +279,7 @@ implicit def seqShow[T : Show]: Show[Seq[T]] = new Show[Seq[T]] {
   private[this] val elementShow = implicitly[Show[T]]
   def show(t: Seq[T]) = t match {
     case Seq() => "Empty"
-    case Seq(x, _@_*) => s"Seq($x, ...)"
+    case Seq(x, _@_*) => s"Seq(${elementShow.show(x)}, ...)"
   }
 }
 
