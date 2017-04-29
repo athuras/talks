@@ -319,7 +319,7 @@ object InjectionLaw {
 
 
 ## In Summary
-1. Everything I've said is unabiguously correct
+1. Everything I've said is unambiguously correct
 2. Type away your problems (get it?!)
 3. Properties are easy to test, so please do.
 
