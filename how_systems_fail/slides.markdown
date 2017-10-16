@@ -3,7 +3,7 @@
 [@athuras](https://www.twitter.com/athuras)
 
 
-![This Is Fine](how_systems_fail/resources/this_is_fine.jpg)
+![This Is Fine](resources/this_is_fine.jpg)
 
 
 
@@ -19,10 +19,10 @@
 
 # Timeseries Data
 
-![Generic Timeseries](how_systems_fail/resources/generic_timeseries.png)
+![Generic Timeseries](resources/generic_timeseries.png)
 
 
-![All The Things](how_systems_fail/resources/all_the_things.png)
+![All The Things](resources/all_the_things.png)
 
 
 
@@ -37,7 +37,7 @@
 
 ### In Practise
 
-![DIAGRAM Offline Pipeline](how_systems_fail/resources/offline_pipeline_diagram.png)
+![DIAGRAM Offline Pipeline](resources/offline_pipeline_diagram.png)
 
 
 
@@ -58,7 +58,7 @@
 ## Solution: Be Faster
 
 
-![Online Processing Meme](how_systems_fail/resources/fast_furious.jpg)
+![Online Processing Meme](resources/fast_furious.jpg)
 
 
 
@@ -76,7 +76,7 @@
 
 ### In Practise
 
-![DIAGRAM Online Pipeline](how_systems_fail/resources/online_pipeline_diagram.png)
+![DIAGRAM Online Pipeline](resources/online_pipeline_diagram.png)
 
 
 
@@ -89,20 +89,20 @@
 5. "Performance Isolation"
 
 
-![Performance Isolation in the Cloud](how_systems_fail/resources/performance_isolation.jpg)
+![Performance Isolation in the Cloud](resources/performance_isolation.jpg)
 
 
 
 ## Solution: Do Both
 
-![DIAGRAM Lambda](how_systems_fail/resources/lambda_architecture_diagram.png)
+![DIAGRAM Lambda](resources/lambda_architecture_diagram.png)
 
 
-![Timeseries Both](how_systems_fail/resources/timeseries_overlap.png)
+![Timeseries Both](resources/timeseries_overlap.png)
 Overlay of the two systems
 
 
-![Timeseries Reconciled](how_systems_fail/resources/timeseries_reconciled.png)
+![Timeseries Reconciled](resources/timeseries_reconciled.png)
 Reconciled
 
 
@@ -126,13 +126,13 @@ Specifically, at its limit.
 
 This is a healthy MapReduce phase:
 
-![DIAGRAM MR Good](how_systems_fail/resources/good_mr.png)
+![DIAGRAM MR Good](resources/good_mr.png)
 
 
 
 This is an unhealthy MapReduce phase:
 
-~[DIAGRAM MR Bad](how_systems_fail/resources/bad_mr.png)
+~[DIAGRAM MR Bad](resources/bad_mr.png)
 
 
 ## Invariants
