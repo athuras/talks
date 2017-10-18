@@ -80,12 +80,12 @@
 
 
 
-### Problems
+### Constraints
 
-1. Volatile Storage is Expensive
-2. Persistent Storage is Slow, or a write-only-store
+1. Volatile Storage is fast, but expensive
+2. Persistent Storage is Slow, or fast-but-read-only
 3. Distributed Queues are Flaky
-4. Online Topologies are very difficult to tune
+4. Streaming Technologies are immature, dangerous
 5. "Performance Isolation"
 
 
@@ -99,7 +99,7 @@
 
 
 ![Timeseries Both](resources/timeseries_overlap.png)
-Overlay of the two systems
+Without Merging
 
 
 ![Timeseries Reconciled](resources/timeseries_reconciled.png)
@@ -116,29 +116,31 @@ Reconciled
 
 
 
-# How to Fail at Batch Processing
+# How to Fail Offline
+
 
 
 ## Lets Talk About MapReduce
 
-Specifically, at its limit.
+Specifically, in pathological environments
 
 
-This is a healthy MapReduce phase:
+This is a happy MapReduce job:
 
-![DIAGRAM MR Good](resources/good_mr.png)
+![DIAGRAM MR Good](resources/healthy_mr_job.png)
 
 
+This is an unhappy MapReduce job:
 
-This is an unhealthy MapReduce phase:
+![DIAGRAM MR Bad](resources/unhealthy_mr_job.png)
 
-~[DIAGRAM MR Bad](resources/bad_mr.png)
 
 
 ## Invariants
 
-1. All mappers must have started before reducers can start
+1. All mappers must start before reducers can start
 2. The last mapper must end before reducers can end.
+
 
 ## Scenario
 
@@ -147,6 +149,7 @@ This is an unhealthy MapReduce phase:
 3. Huge number of huger reducers
 
 
+## Flow
 1. Mappers start
 2. Reducers start
 3. Cluster manager marks trailing map tasks as failed
@@ -154,15 +157,109 @@ This is an unhealthy MapReduce phase:
 5. Wait, forwever.
 
 
-# How to Fail at Online Processing
+## "Solution"
+Require that reducers can't start until shuffle is totally completed.
+This makes things slow (wallclock time).
 
-- Most enterprise distributed systems assume network partitions are rare.
-- But what _is_ a network partition anyways?
+
+
+# How to Fail Online
+
+
+## Lets talk about ~~Storm~~ Heron
+
+Specifically, in pathological environments
+
+
+This is your Logical Topology
+
+![DIAGRAM Heron](resources/heron_topology.png)
+
+
+This is your Physical Topology
+
+![DIAGRAM Heron Phys](resources/heron_topology_physical.png)
+
+
+This is your Physical Topology on a bad network
+
+![DIAGRAM Dragons](resources/heron_dragons.svg)
+
+
+## Invariants
+
+1. System needs to agree on where each logical component resides
+2. Components need to agree on the state of each intra-topology message
+
+
+## Network Partitions
+
+
+![DIAGRAM Network Partition](resources/network_partition.svg)
+This is a classic Network Partition Diagram
+
+
+![DIAGRAM Latency Distribution](resources/latency_distribution.png)
+But messages are sneaky things
+
+
+Most enterprise distributed systems assume network partitions are ~~rare~~ impossible.
 
 
 Remember the invariants from MapReduce?
 
 > The last mapper must end before reducers can end.
 
-What happens to the 'pseudo mappers' when they can't delivery messages anymore?
 
+What happens to the 'pseudo mappers' when they can't deliver messages anymore? Or vanish? Or reappear?
+
+
+
+## "Solutions"
+
+1. Limit use of coordination features (aggregations, groups)
+2. Minimise liklihood of Network Partition (centralise)
+
+
+
+# A Message Of Hope
+
+![Dealwithit Lambda](resources/dealwithit_lambda.png)
+
+
+
+# Constraints
+
+1. Volatile Storage is fast, but expensive
+2. Persistent Storage is Slow, or fast-but-read-only
+3. Distributed Queues are Flaky
+4. Streaming Technologies are immature, dangerous
+5. "Performance Isolation"
+
+
+## Persistent Storage is Bad
+
+BigTable, Cassandra beg to differ
+
+
+## Distributed Queues are Bad
+
+Kafka, PubSub, Kinesis. All solid contenders.
+
+
+## Streaming Technologies are Bad
+
+Kafka, Spark, Flink, MillWheel...
+
+
+## Performance Isolation
+
+Still a problem.
+
+Either pay Google or Amazon to deal with this for you, or you're on your own.
+
+
+
+## The Future Is Online
+
+Any Questions?
